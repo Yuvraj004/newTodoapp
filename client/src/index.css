@@ -1,5 +1,25 @@
-@import 'tailwindcss/tailwind.css';
+#root{
+    font-family: ui-monospace;
+}
 
-div{
-  display: flex;
+#Register{
+    color:black;
+    border-radius: 5%;
+    margin: 10px;
+}
+#registerImgBackground{
+    background-color: #000000;
+    border-radius: 5%;
+    padding: 10px;
+    margin: 20px;
+    width: 50%;
+    height: 100%;
+}
+#Details{
+    color:black;
+    border-radius: 5%;
+    padding: 10px;
+    margin: 20px;
+    width: 50%;
+    height: 100%;
 }

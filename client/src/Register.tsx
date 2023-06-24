@@ -1,6 +1,8 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React from 'react'; import { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import './index.css';
+import prod from './assets/prod2.png';
 const Register: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -42,32 +44,32 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className= 'Register' style={{display:"flex"}}>
-      <div className='registerImgBackground'>
-        <img></img>
+    <div className= 'd-flex flex-row align-items-center justify-content-evenly w-100 vh-100' id="Register">
+      <div className="d-flex flex-column align-items-center justify-content-center " id='registerImgBackground'>
+        <img src={prod} width={300} height={300}></img>
       </div>
-      <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <input
+      <div className='d-flex flex-column justify-content-evenly align-items-center' id="Details">
+      <h1 className="text-start">Register Yourself <p>for Your Productivity</p></h1>
+      <form onSubmit={handleSubmit} className='d-flex flex-column justify-content-center '>
+        <input className='mb-2 form-control'
           type="text"
           placeholder="Name"
           value={name}
           onChange={handleNameChange}
         />
-        <input
+        <input className='mb-2 form-control'
           type="email"
           placeholder="Email"
           value={email}
           onChange={handleEmailChange}
         />
-        <input
+        <input className='mb-2 form-control'
           type="password"
           placeholder="Password"
           value={password}
           onChange={handlePasswordChange}
         />
-        <button type="submit">Register</button>
+        <button className='btn btn-primary' type="submit">Register</button>
       </form>
       </div>
     </div>

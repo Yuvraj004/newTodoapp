@@ -1,10 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  let navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Send login data to the backend
     // Implement the API call here
@@ -20,11 +22,11 @@ const Login: React.FC = () => {
     console.log(data);
     if(data!= null){
       localStorage.setItem('data',data);
-      alert("Register success");
+      alert("Login success");
       navigate('/');
     }
     else{
-      alert("Registration faild,Try again");
+      alert("Login failed,Try again");
       navigate('/login');
     }
   };

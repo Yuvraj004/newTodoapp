@@ -14,7 +14,6 @@ const config = {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: {
-      tsx:true,
       jsx: true,
     },
   },
