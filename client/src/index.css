@@ -1,5 +1,9 @@
+a{
+    text-decoration: none;
+}
 #root{
     font-family: ui-monospace;
+    background-color: rgb(255, 255, 255);
 }
 
 #Register{
@@ -22,4 +26,22 @@
     margin: 20px;
     width: 50%;
     height: 100%;
+}
+
+#Login{
+    border:1px solid black;
+    border-top: none;
+    border-radius: 3%;
+    padding: 10px;
+}
+
+#List{
+    background-color:"#ebebeb";
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+    min-height:500px ;
+    padding: 20px;
+    border: 0.5px solid black;
+    border-radius: 2%;
 }

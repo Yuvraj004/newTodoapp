@@ -49,7 +49,7 @@ const Register: React.FC = () => {
         <img src={prod} width={300} height={300}></img>
       </div>
       <div className='d-flex flex-column justify-content-evenly align-items-center' id="Details">
-      <h1 className="text-start">Register Yourself <p>for Your Productivity</p></h1>
+      <h1 className="text-start">Register Yourself <p>For Your Productivity</p></h1>
       <form onSubmit={handleSubmit} className='d-flex flex-column justify-content-center '>
         <input className='mb-2 form-control'
           type="text"

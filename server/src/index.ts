@@ -151,38 +151,38 @@ app.post("/todos", authenticateUser, async (req: any, res: Response) => {
   res.json({ newTodo });
 });
 
-app.put("/todos", authenticateUser, (req: Request, res: Response) => {
-  Todo.findById(req.body._id, { new: true }).then((todo) => {
+app.put("/updateTodo/:id", authenticateUser, async (req: Request, res: Response) => {
+  try {
     const { title, description } = req.body;
-    if (todo != null) {
-      const updateTodo = new Todo({
-        ...todo,
-        title,
-        description,
-      });
-      todo.updateOne(updateTodo);
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      { title, description },
+      { new: true }
+    );
+    
+    if (updatedTodo) {
+      console.log(updatedTodo);
+      res.status(200).json({ todo: updatedTodo });
     } else {
       res.status(401).json({ message: "Updation failed" });
     }
-    // Update the specified todo in the database
-    res.json({ todo });
-  });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
-app.delete("/todos", authenticateUser, (req: Request, res: Response) => {
-  Todo.findById(req.body._id).then((todo) => {
-    // Delete the specified todo from the database
-    try {
-      if (todo != null) {
-        todo.deleteOne();
+app.delete("/todos/:id", authenticateUser, (req: Request, res: Response) => {
+  Todo.findByIdAndDelete(req.params.id)
+    .then((deletedTodo) => {
+      if (deletedTodo) {
         res.json({ message: "Deletion successful" });
       } else {
-        res.status(401).json({ message: "Deletion failed" });
+        res.status(404).json({ message: "Todo not found" });
       }
-    } catch (error) {
-      res.status(401).json({ message: error });
-    }
-  });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Internal server error" });
+    });
 });
 
 // Start the server
