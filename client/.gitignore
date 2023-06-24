@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/test-results/
+/playwright-report/
+/playwright/.cache/
+./playwright.config.ts
+playwright.config.ts/
+./tests
+tests/
+tests-examples/
+/.github/
