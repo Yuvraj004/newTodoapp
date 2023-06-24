@@ -18,7 +18,7 @@ const CustomNavbar: React.FC = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
-      <Navbar.Brand as={Link} to="/todos">
+      <Navbar.Brand >
         BRAIN IT DOWN
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
