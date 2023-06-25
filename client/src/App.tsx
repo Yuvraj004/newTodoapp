@@ -8,8 +8,16 @@ import CreateTodo from './operations/CreateTodos';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 
 const CustomNavbar: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }, []);
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -19,7 +27,7 @@ const CustomNavbar: React.FC = () => {
 
   return (
     <Navbar bg="light" variant="light" expand="lg" className="mb-4">
-      <Navbar.Brand as={Link} to ="/">
+      <Navbar.Brand as={Link} to="/">
         BRAIN IT DOWN
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
@@ -31,17 +39,15 @@ const CustomNavbar: React.FC = () => {
           <Nav.Link as={Link} to="/login">
             Login
           </Nav.Link>
-          {isAuthenticated ? (
-            <Nav.Link as={Link} to="/login">
+          {isAuthenticated && (
+            <Nav.Link as={Link} to="/todos">
               Todos
             </Nav.Link>
-          ):(<Nav.Link as={Link} to="/todos">
-              Todos
-          </Nav.Link>)}
+          )}
         </Nav>
       </Navbar.Collapse>
-      {isAuthenticated ? <></> : (
-        <Button variant="outline-light" onClick={handleLogout} className="m-2">
+      {isAuthenticated && (
+        <Button variant="outline-dark"  onClick={handleLogout} className="m-2">
           Logout
         </Button>
       )}
@@ -51,9 +57,6 @@ const CustomNavbar: React.FC = () => {
 
 const App: React.FC = () => {
   const isAuthenticated = !!localStorage.getItem('token');
-  useEffect(() => {
-    console.log('todos');
-  }, [isAuthenticated]);
 
   return (
     <BrowserRouter>
@@ -62,11 +65,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          {isAuthenticated ? (
-            <Route path="/todos" element={<Todos />} />
-          ) : (
-            <Route path="/login" element={<Login />} /> 
-          )}
+          <Route path="/todos" element={<Todos />} />
           <Route path="/createTodos" element={<CreateTodo />} />
           <Route path="/" element={<Home />} />
         </Routes>

@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyParser from "body-parser";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoose, { Types, Schema } from "mongoose";
 import morgan from "morgan";
@@ -97,7 +97,7 @@ app.post("/register", async (req: Request, res: Response) => {
   try {
     const { name,email, password } = req.body;
     
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     
     const newUser:any = new User({
       name:name,
@@ -117,7 +117,7 @@ app.post("/login", async (req: Request, res: Response) => {
   try {
 
     const user:any = await User.findOne({email:req.body.email});
-    const passwordMatch = await bcrypt.compare(req.body.password, user.password!);
+    const passwordMatch = await bcryptjs.compare(req.body.password, user.password!);
     if (!passwordMatch) throw new Error("Invalid password");
     const token = jwt.sign({ _id: user._id }, "secret");
     const { _id ,email } = user;
@@ -134,7 +134,7 @@ app.get("/todos", authenticateUser, async (req: any, res: Response) => {
     const todos = await Todo.find({ user: userID }); // Assuming you have a Todo model and each todo has a 'user' field representing the user who created it
     res.json({ todos });
   } else {
-    res.status(401).json({ message: "Authentication failed" });
+    res.status(401).json({ message: "Authentication fail" });
   }
 });
 

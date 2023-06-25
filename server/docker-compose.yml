@@ -1,11 +1,11 @@
-version: "3.4"
+version: '3.4'
 services:
-  vite_docker:
+  viteb_docker:
     image: node:alpine
-    container_name: vite_docker
+    container_name: viteb_docker
     entrypoint: /bin/sh
     ports:
-      - 8000:8000
+      - '4000:4000'
     working_dir: /srv/app
     volumes:
       - type: bind
