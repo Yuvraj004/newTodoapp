@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-do
 import Register from './Register';
 import Login from './Login';
 import Todos from './Todos';
+import Home from './Home';
 import CreateTodo from './operations/CreateTodos';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 
@@ -17,8 +18,8 @@ const CustomNavbar: React.FC = () => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
-      <Navbar.Brand >
+    <Navbar bg="light" variant="light" expand="lg" className="mb-4">
+      <Navbar.Brand as={Link} to ="/">
         BRAIN IT DOWN
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="navbar-nav" />
@@ -30,14 +31,16 @@ const CustomNavbar: React.FC = () => {
           <Nav.Link as={Link} to="/login">
             Login
           </Nav.Link>
-          {isAuthenticated && (
-            <Nav.Link as={Link} to="/todos">
+          {isAuthenticated ? (
+            <Nav.Link as={Link} to="/login">
               Todos
             </Nav.Link>
-          )}
+          ):(<Nav.Link as={Link} to="/todos">
+              Todos
+          </Nav.Link>)}
         </Nav>
       </Navbar.Collapse>
-      {isAuthenticated && (
+      {isAuthenticated ? <></> : (
         <Button variant="outline-light" onClick={handleLogout} className="m-2">
           Logout
         </Button>
@@ -65,6 +68,7 @@ const App: React.FC = () => {
             <Route path="/login" element={<Login />} /> 
           )}
           <Route path="/createTodos" element={<CreateTodo />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,47 +1,47 @@
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
-#root{
-    font-family: ui-monospace;
-    background-color: rgb(255, 255, 255);
-}
-
-#Register{
-    color:black;
-    border-radius: 5%;
-    margin: 10px;
-}
-#registerImgBackground{
-    background-color: #000000;
-    border-radius: 5%;
-    padding: 10px;
-    margin: 20px;
-    width: 50%;
-    height: 100%;
-}
-#Details{
-    color:black;
-    border-radius: 5%;
-    padding: 10px;
-    margin: 20px;
-    width: 50%;
-    height: 100%;
+#root {
+  font-family: ui-monospace;
+  background-color: rgb(255, 255, 255);
 }
 
-#Login{
-    border:1px solid black;
-    border-top: none;
-    border-radius: 3%;
-    padding: 10px;
+#Register {
+  color: black;
+  border-radius: 5%;
+  margin: 10px;
+}
+#registerImgBackground {
+  background-color: #000000;
+  border-radius: 5%;
+  padding: 10px;
+  margin: 20px;
+  width: 50%;
+  height: 100%;
+}
+#Details {
+  color: black;
+  border-radius: 5%;
+  padding: 10px;
+  margin: 20px;
+  width: 50%;
+  height: 100%;
 }
 
-#List{
-    background-color:"#ebebeb";
-    width: 90%;
-    margin-left: 20px;
-    margin-right: 20px;
-    min-height:500px ;
-    padding: 20px;
-    border: 0.5px solid black;
-    border-radius: 2%;
+#Login {
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 3%;
+  padding: 10px;
+}
+
+#List {
+  background-color: "#ebebeb";
+  width: 90%;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 500px;
+  padding: 20px;
+  border: 0.5px solid black;
+  border-radius: 2%;
 }
