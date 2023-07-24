@@ -13,7 +13,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     // Send registration data to the backend
     // Implement the API call here
-    let response = await fetch('http://localhost:4000/register', {
+    let response = await fetch('http://localhost:8888/.netlify/functions/api/register', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

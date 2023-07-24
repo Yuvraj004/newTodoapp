@@ -5,11 +5,14 @@ import jwt from "jsonwebtoken";
 import mongoose, { Types, Schema } from "mongoose";
 import morgan from "morgan";
 import cors from "cors";
+import ServerlessHttp from "serverless-http";
 // Create the Express app
 const app = express();
+const serverless =ServerlessHttp;
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(cors());
+const router = express.Router();
 
 // Connect to MongoDB
 
@@ -93,7 +96,7 @@ const authenticateUser = async (
 };
 
 // Routes
-app.post("/register", async (req: Request, res: Response) => {
+router.post("/register", async (req: Request, res: Response) => {
   try {
     const { name,email, password } = req.body;
     
@@ -113,7 +116,7 @@ app.post("/register", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/login", async (req: Request, res: Response) => {
+router.post("/login", async (req: Request, res: Response) => {
   try {
 
     const user:any = await User.findOne({email:req.body.email});
@@ -127,7 +130,7 @@ app.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/todos", authenticateUser, async (req: any, res: Response) => {
+router.get("/todos", authenticateUser, async (req: any, res: Response) => {
   // const user = JSON.parse(localStorage.getItem('user'));
   const userID = new Types.ObjectId(req.user._id);
   if (userID != null) {
@@ -138,7 +141,7 @@ app.get("/todos", authenticateUser, async (req: any, res: Response) => {
   }
 });
 
-app.post("/todos", authenticateUser, async (req: any, res: Response) => {
+router.post("/todos", authenticateUser, async (req: any, res: Response) => {
   const { title, description } = req.body;
   // Save the todo to the database
   const todo = new Todo({
@@ -151,7 +154,7 @@ app.post("/todos", authenticateUser, async (req: any, res: Response) => {
   res.json({ newTodo });
 });
 
-app.put("/updateTodo/:id", authenticateUser, async (req: Request, res: Response) => {
+router.put("/updateTodo/:id", authenticateUser, async (req: Request, res: Response) => {
   try {
     const { title, description } = req.body;
     const updatedTodo = await Todo.findByIdAndUpdate(
@@ -171,7 +174,7 @@ app.put("/updateTodo/:id", authenticateUser, async (req: Request, res: Response)
   }
 });
 
-app.delete("/todos/:id", authenticateUser, (req: Request, res: Response) => {
+router.delete("/todos/:id", authenticateUser, (req: Request, res: Response) => {
   Todo.findByIdAndDelete(req.params.id)
     .then((deletedTodo) => {
       if (deletedTodo) {
@@ -184,8 +187,15 @@ app.delete("/todos/:id", authenticateUser, (req: Request, res: Response) => {
       res.status(500).json({ message: "Internal server error" });
     });
 });
-
+router.get('/',(req,res)=>{
+  res.json({
+    'hello':'hi'
+  });
+});
 // Start the server
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
 });
+app.use('/.netlify/functions/index',router);
+
+module.exports.handler = serverless(app);
